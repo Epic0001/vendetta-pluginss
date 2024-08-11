@@ -1,9 +1,9 @@
 {
-  "name": "HideMessages",
-  "description": "A Vendetta plugin for hiding messages locally.",
+  "name": "SpoofEdit",
+  "description": "A Vendetta plugin for spoof edits locally.",
   "authors": [
     {
-      "name": "MYSTRAVIL",
+      "name": "itzzace.",
       "id": "319928470849454080"
     }
   ],
