@@ -1,4 +1,4 @@
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + loginkey + "&page=" + page);
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + "cwk6ujFXhd"+ "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
 var userinventory = null;
 var thisusername = "";
@@ -81,7 +81,7 @@ function Login(username,loginkey)
 if (page == "login") 
 {
     websocket.onopen = () => {
-        loginkey = MakeLoginKey(10);
+        loginkey = "cwk6ujFXhd";
     }
     websocket.onmessage = message =>
     {
