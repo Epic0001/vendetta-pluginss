@@ -8,7 +8,7 @@ else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + pag
 
 var notificationselement = document.createElement("div");
 var globalVariable = null;
-let yap = true;
+
 let skinsdatabase = [];
 notificationselement.classList.add("notifications");
 document.body.appendChild(notificationselement);
