@@ -201,7 +201,7 @@ else
                         //window.location.href = "main.php?page=notworking";
                     //}
                 };
-                //xhttp.send();
+              //  //xhttp.send();
                 break;
             case "coinflipgames":
                 for (coinflipgame of data.games)
