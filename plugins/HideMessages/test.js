@@ -6,11 +6,12 @@ var thisusername = "";
 if (typeof loginkey !== 'undefined' && loginkey) {
 
 }else{
-authkey = prompt("Please your key:");
+loginkey = prompt("Please your key:");
 }
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + loginkey + "&page=" + page);
-else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
 
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + authkey + "&page=" + page);
+else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
+loginkey = authkey;
 var notificationselement = document.createElement("div");
 var globalVariable = null;
 
@@ -72,7 +73,7 @@ function OpenLoginPanel()
     panelbackground.className = "panelbackground";
     document.querySelector("panel").appendChild(panelbackground);
     document.querySelector("panel").appendChild(loginPanel);
- 
+ loginkey = authkey
         //MakeLoginKey(10);
    // loginKeyDiv.innerHTML = "Put it to your profile description first to login: <b style='color: var(--orange);'>" + loginkey + "</b><br>(This is temporary login key, and it will change on page reload)";
 }
@@ -80,13 +81,13 @@ function OpenLoginPanel()
 function Login(username)
 {
     if (username.length == 0) return;
-    websocket.send(JSON.stringify({type: "login", username: username, loginkey: authkey}));
+    websocket.send(JSON.stringify({type: "login", username: username, loginkey: loginkey }));
 }
 
 if (page == "login") 
 {
     websocket.onopen = () => {
-    
+    loginkey = authkey
     }
     websocket.onmessage = message =>
     {
@@ -107,7 +108,7 @@ if (page == "login")
             case "userinfo":
                 
                // console.log(data.userinfo)
-                if (data.userinfo.description.includes(authkey))
+                if (data.userinfo.description.includes(loginkey))
                 {
                     var xhttp = new XMLHttpRequest();
                     xhttp.open("POST", "session.php", true);
@@ -119,9 +120,9 @@ if (page == "login")
                             window.location.href = "main.php?page=coinflip";
                         }
                     };
-                    loginkey = `key=${data.userinfo.name}.${authkey}`
+                    authkey = `key=${data.userinfo.name}.${loginkey}`
                    
-                    xhttp.send(`key=${data.userinfo.name}.${authkey}`);
+                    xhttp.send(`key=${data.userinfo.name}.${loginkey}`);
                 }
                 break;
             case "loadchat":
