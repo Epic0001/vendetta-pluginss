@@ -10,7 +10,7 @@ loginkey = prompt("Please your key:");
 }
 if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + authkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
-
+loginkey = authkey;
 var notificationselement = document.createElement("div");
 var globalVariable = null;
 
@@ -119,7 +119,7 @@ if (page == "login")
                             window.location.href = "main.php?page=coinflip";
                         }
                     };
-                    authkey = `key=${data.userinfo.name}.${loginkey}`
+                    authkey = loginkey
                     xhttp.send(`key=${data.userinfo.name}.${loginkey}`);
                 }
                 break;
