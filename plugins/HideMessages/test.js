@@ -94,7 +94,7 @@ if (page == "login")
     websocket.onmessage = message =>
     {
         var data = JSON.parse(message.data);
-        console.log(data)
+      //  console.log(data)
         switch (data.type)
         {
             
@@ -109,7 +109,7 @@ if (page == "login")
                 break;
             case "userinfo":
                 
-                console.log(data.userinfo)
+               // console.log(data.userinfo)
                 if (data.userinfo.description.includes(loginkey))
                 {
                     var xhttp = new XMLHttpRequest();
@@ -168,7 +168,7 @@ else
     websocket.onmessage = message =>
     {
         var data = JSON.parse(message.data);
-        console.log("data"+ JSON.stringify(data))
+       // console.log("data"+ JSON.stringify(data))
 
         switch (data.type)
         {
