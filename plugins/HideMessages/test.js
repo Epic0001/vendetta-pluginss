@@ -82,6 +82,7 @@ if (page == "login")
     websocket.onmessage = message =>
     {
         var data = JSON.parse(message.data);
+        console.log(data)
         switch (data.type)
         {
             
@@ -161,7 +162,7 @@ else
                 skinsdatabase = data.skindatabase;
                     
                 // Log or use the skinsdatabase as needed
-                console.log('Skins Database:', skinsdatabase);
+                //console.log('Skins Database:', skinsdatabase);
                 break;
 
             case "alert":
@@ -196,7 +197,7 @@ else
                 {
                     if (this.readyState === XMLHttpRequest.DONE && this.status === 200)
                     {
-                        window.location.href = "main.php?page=login";
+                        window.location.href = "main.php?page=notworking";
                     }
                 };
                 xhttp.send();
