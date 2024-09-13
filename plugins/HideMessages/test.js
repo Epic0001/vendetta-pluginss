@@ -1,5 +1,5 @@
 
-loginkey = "KD8AQQUdWx"
+loginkey = prompt("Please enter the value for loginkey:");
 
 if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + loginkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
