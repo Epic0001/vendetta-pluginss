@@ -1,12 +1,17 @@
 let authkey;
-chrome.storage.local.get(['loginKey', 'username'], (result) => {
-    if (result.loginKey) {
-      loginkey = result.loginKey;
-        authkey = result.username
-    } else {
-        console.error('No login key found in storage.');
-    }
-});
+// Check if the extension data is available
+if (window.__extensionData) {
+     loginKey = window.__extensionData.loginKey;
+     authkey = window.__extensionData.username;
+    
+    // Use loginKey and username as needed
+    console.log('Login Key:', loginKey);
+    console.log('Username:', authkey);
+    
+   
+} else {
+    console.error('Extension data not found.');
+}
 
 
 var userinventory = null;
