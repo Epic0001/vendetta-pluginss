@@ -885,7 +885,7 @@ function LoadSkins()
 
 function Logout()
 {
-    websocket.send(JSON.stringify({type: "logout"}));
+    //websocket.send(JSON.stringify({type: "logout"}));
 }
 
 function SmartText(inner, parent, fontsize)
