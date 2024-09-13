@@ -196,16 +196,16 @@ else
                 break;
             case "logout":
                 console.log("logout " + JSON.stringify(data, null, 2)); // Pretty-prints the object
-                //var xhttp = new XMLHttpRequest();
-                //xhttp.open("GET", "session.php", true);
-                //xhttp.onreadystatechange = function()
-                //{
-                   // if (this.readyState === XMLHttpRequest.DONE && this.status === 200)
-                    //{
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "session.php", true);
+                xhttp.onreadystatechange = function()
+                {
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200)
+                    {
                         //window.location.href = "main.php?page=notworking";
-                    //}
-            //    //};
-              //  //xhttp.send();
+                    }
+              };
+                xhttp.send();
                 break;
             case "coinflipgames":
                 for (coinflipgame of data.games)
@@ -889,7 +889,7 @@ function LoadSkins()
 
 function Logout()
 {
-    //websocket.send(JSON.stringify({type: "logout"}));
+    websocket.send(JSON.stringify({type: "logout"}));
 }
 
 function SmartText(inner, parent, fontsize)
