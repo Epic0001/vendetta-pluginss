@@ -11,7 +11,7 @@ loginkey = prompt("Please your key:");
 
 if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + authkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
-loginkey = authkey;
+
 var notificationselement = document.createElement("div");
 var globalVariable = null;
 
@@ -73,7 +73,7 @@ function OpenLoginPanel()
     panelbackground.className = "panelbackground";
     document.querySelector("panel").appendChild(panelbackground);
     document.querySelector("panel").appendChild(loginPanel);
- loginkey = authkey
+
         //MakeLoginKey(10);
    // loginKeyDiv.innerHTML = "Put it to your profile description first to login: <b style='color: var(--orange);'>" + loginkey + "</b><br>(This is temporary login key, and it will change on page reload)";
 }
@@ -87,7 +87,7 @@ function Login(username)
 if (page == "login") 
 {
     websocket.onopen = () => {
-    loginkey = authkey
+
     }
     websocket.onmessage = message =>
     {
