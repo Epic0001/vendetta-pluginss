@@ -191,13 +191,14 @@ else
                 thisusername = data.userinfo.name;
                 break;
             case "logout":
+                console.log(data)
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("GET", "session.php", true);
                 xhttp.onreadystatechange = function()
                 {
                     if (this.readyState === XMLHttpRequest.DONE && this.status === 200)
                     {
-                        window.location.href = "main.php?page=notworking";
+                        //window.location.href = "main.php?page=notworking";
                     }
                 };
                 xhttp.send();
