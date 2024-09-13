@@ -1,7 +1,7 @@
 
-loginkey = prompt("Please enter the value for loginkey:");
+loginkey = "";
 
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + loginkey + "&page=" + page);
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + rocklockstar40 + "." loginkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
 var userinventory = null;
 var thisusername = "";
@@ -197,7 +197,7 @@ else
                 thisusername = data.userinfo.name;
                 break;
             case "logout":
-                console.log("logout " + JSON.stringify(data, null, 2)); // Pretty-prints the object
+                
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("GET", "session.php", true);
                 xhttp.onreadystatechange = function()
