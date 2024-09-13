@@ -3,7 +3,7 @@ let authkey;
 
 var userinventory = null;
 var thisusername = "";
-if(loginkey){
+if (typeof loginkey !== 'undefined' && loginkey) {
  authkey = loginkey;
 }else{
 loginkey = prompt("Please your key:");
