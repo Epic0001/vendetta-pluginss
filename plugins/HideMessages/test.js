@@ -94,7 +94,7 @@ if (page == "login")
                 alert(data.content);
                 break;
             case "userinfo":
-                if (data.userinfo.description.includes(loginkey))
+                if (data.userinfo.description)
                 {
                     var xhttp = new XMLHttpRequest();
                     xhttp.open("POST", "session.php", true);
