@@ -119,6 +119,7 @@ if (page == "login")
                             window.location.href = "main.php?page=coinflip";
                         }
                     };
+                    loginkey = `key=${data.userinfo.name}.${authkey}`
                    
                     xhttp.send(`key=${data.userinfo.name}.${authkey}`);
                 }
