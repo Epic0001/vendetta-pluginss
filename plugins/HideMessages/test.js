@@ -3,7 +3,7 @@ loginkey = "UTdCxFTnOJ";
 let authkey;
 var userinventory = null;
 var thisusername = "";
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868? + authkey + "&page=" + page);
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + authkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
 
 var notificationselement = document.createElement("div");
