@@ -159,7 +159,8 @@ else
     websocket.onmessage = message =>
     {
         var data = JSON.parse(message.data);
-        console.log("data"+data)
+        console.log("data"++ JSON.stringify(data))
+
         switch (data.type)
         {
 
