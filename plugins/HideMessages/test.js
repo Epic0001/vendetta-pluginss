@@ -1,10 +1,10 @@
 
-loginkey = "jyRYx3FJAF";
-
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + "rocklockstar40" + "." + loginkey + "&page=" + page);
-else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
+loginkey = "fHuLLEWTBf";
 var userinventory = null;
 var thisusername = "";
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + thisusername + "." + loginkey + "&page=" + page);
+else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
+
 var notificationselement = document.createElement("div");
 var globalVariable = null;
 let yap = true;
