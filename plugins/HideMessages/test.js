@@ -204,7 +204,7 @@ else
                     //{
                         //window.location.href = "main.php?page=notworking";
                     //}
-                };
+            //    //};
               //  //xhttp.send();
                 break;
             case "coinflipgames":
