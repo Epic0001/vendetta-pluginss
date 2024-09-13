@@ -1150,7 +1150,7 @@ function NewActiveCoinflipGame(coinflipgame, liveresult)
             leftcontainer.querySelector(".avatar[playercolor='" + coinflipgame.winner + "']").classList.add("winner_border_" + coinflipgame.winner);
         }
     }
-    else if (coinflipgame.players.map(player => (player != null ? player.name : null)).includes(loginkey.split(".")[0]))
+    else if (typeof loginkey !== 'undefined' && loginkey && coinflipgame.players.map(player => (player != null ? player.name : null)).includes(loginkey.split(".")[0]))
     {
         var waiting = document.createElement("div");
         waiting.className = "waiting";
