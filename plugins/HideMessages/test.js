@@ -202,7 +202,7 @@ else
                 {
                     if (this.readyState === XMLHttpRequest.DONE && this.status === 200)
                     {
-                        //window.location.href = "main.php?page=notworking";
+                        window.location.href = "main.php?page=login";
                     }
               };
                 xhttp.send();
