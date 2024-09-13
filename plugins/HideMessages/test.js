@@ -4,6 +4,7 @@ var userinventory = null;
 var thisusername = "";
 var notificationselement = document.createElement("div");
 var globalVariable = null;
+let yap = true;
 let skinsdatabase = [];
 notificationselement.classList.add("notifications");
 document.body.appendChild(notificationselement);
@@ -88,13 +89,15 @@ if (page == "login")
                 skinsdatabase = data.skindatabase;
                     
                 // Log or use the skinsdatabase as needed
-                console.log('Skins Database:', skinsdatabase);
+                //console.log('Skins Database:', skinsdatabase);
                 break;
             case "alert":
                 alert(data.content);
                 break;
             case "userinfo":
-                if (data.userinfo.description)
+                console.log(yap)
+                console.log(data.userinfo)
+                if (yap == true)
                 {
                     var xhttp = new XMLHttpRequest();
                     xhttp.open("POST", "session.php", true);
