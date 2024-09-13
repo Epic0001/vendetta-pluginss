@@ -1,5 +1,4 @@
 
-let loginkey;
 loginkey = prompt("Please enter the value for loginkey:");
 alert("You entered loginkey: " + loginkey);
 
