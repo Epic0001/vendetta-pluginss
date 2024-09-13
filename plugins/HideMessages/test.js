@@ -54,21 +54,25 @@ function OpenLoginPanel()
     var usernameInput = document.createElement("input");
     usernameInput.placeholder = "Enter username";
     inputButtonContainer.appendChild(usernameInput);
+
+    var loginkeyInput = document.createElement("input");
+    loginkeyInput.placeholder = "put key";
+    inputButtonContainer.appendChild(loginkeyInput);
     
     var loginButton = document.createElement("button");
     loginButton.innerHTML = "Login";
-    loginButton.addEventListener("click", () => Login(usernameInput.value));
+    loginButton.addEventListener("click", () => Login(usernameInput.value,loginkeyInput.value));
     inputButtonContainer.appendChild(loginButton);
     
     var panelbackground = document.createElement("div");
     panelbackground.className = "panelbackground";
     document.querySelector("panel").appendChild(panelbackground);
     document.querySelector("panel").appendChild(loginPanel);
-    loginkey = MakeLoginKey(10);
-    loginKeyDiv.innerHTML = "Put it to your profile description first to login: <b style='color: var(--orange);'>" + loginkey + "</b><br>(This is temporary login key, and it will change on page reload)";
+   // loginkey = MakeLoginKey(10);
+   // loginKeyDiv.innerHTML = "Put it to your profile description first to login: <b style='color: var(--orange);'>" + loginkey + "</b><br>(This is temporary login key, and it will change on page reload)";
 }
 
-function Login(username)
+function Login(username,loginkey)
 {
     if (username.length == 0) return;
     websocket.send(JSON.stringify({type: "login", username: username, loginkey: loginkey}));
