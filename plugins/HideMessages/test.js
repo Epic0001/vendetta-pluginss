@@ -6,7 +6,10 @@ var thisusername = "";
 if (typeof loginkey !== 'undefined' && loginkey) {
 authkey = loginkey
 }else{
-loginkey = prompt("Please your key:");
+loginkey = "";
+    
+    
+    //prompt("Please your key:");
 }
 
 if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + authkey + "&page=" + page);
