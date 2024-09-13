@@ -1,9 +1,17 @@
-
-loginkey = "UTdCxFTnOJ";
 let authkey;
+chrome.storage.local.get(['loginKey', 'username'], (result) => {
+    if (result.loginKey) {
+      loginkey = result.loginKey;
+        authkey = result.username
+    } else {
+        console.error('No login key found in storage.');
+    }
+});
+
+
 var userinventory = null;
 var thisusername = "";
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + authkey + "&page=" + page);
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + authkey +"." + loginkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
 
 var notificationselement = document.createElement("div");
