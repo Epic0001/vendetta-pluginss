@@ -1,22 +1,14 @@
 let authkey;
-// Check if the extension data is available
-if (window.__extensionData) {
-     loginKey = window.__extensionData.loginKey;
-     authkey = window.__extensionData.username;
-    
-    // Use loginKey and username as needed
-    console.log('Login Key:', loginKey);
-    console.log('Username:', authkey);
-    
-   
-} else {
-    console.error('Extension data not found.');
-}
 
 
 var userinventory = null;
 var thisusername = "";
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + authkey +"." + loginkey + "&page=" + page);
+if(loginkey){
+ authkey = loginkey;
+}else{
+loginkey = prompt("Please your key:");
+}
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + authkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
 
 var notificationselement = document.createElement("div");
