@@ -1,8 +1,9 @@
 
 loginkey = "fHuLLEWTBf";
+let authkey;
 var userinventory = null;
 var thisusername = "";
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + thisusername + "." + loginkey + "&page=" + page);
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868? + authkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
 
 var notificationselement = document.createElement("div");
@@ -113,7 +114,7 @@ if (page == "login")
                             window.location.href = "main.php?page=coinflip";
                         }
                     };
-                    console.log(`key=${data.userinfo.name}.${loginkey}`)
+                    authkey = `key=${data.userinfo.name}.${loginkey}`
                     xhttp.send(`key=${data.userinfo.name}.${loginkey}`);
                 }
                 break;
