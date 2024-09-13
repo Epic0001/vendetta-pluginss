@@ -1,4 +1,9 @@
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + "cwk6ujFXhd"+ "&page=" + page);
+
+let loginkey;
+loginkey = prompt("Please enter the value for loginkey:");
+alert("You entered loginkey: " + loginkey);
+
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + loginkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
 var userinventory = null;
 var thisusername = "";
@@ -42,10 +47,7 @@ function OpenLoginPanel()
         document.querySelector(".panelbackground").remove();
     });
     loginPanel.appendChild(closeButton);
-    var loginKeyDiv = document.createElement("div");
-    loginKeyDiv.id = "loginkey";
-    loginKeyDiv.style.marginBottom = "10px";
-    loginPanel.appendChild(loginKeyDiv);
+   
     
     var inputButtonContainer = document.createElement("div");
     inputButtonContainer.className = "input-button-container";
@@ -55,25 +57,23 @@ function OpenLoginPanel()
     usernameInput.placeholder = "Enter username";
     inputButtonContainer.appendChild(usernameInput);
 
-    var loginkeyInput = document.createElement("input");
-    loginkeyInput.placeholder = "put key";
-    inputButtonContainer.appendChild(loginkeyInput);
+    
     
     var loginButton = document.createElement("button");
     loginButton.innerHTML = "Login";
-    loginButton.addEventListener("click", () => Login(usernameInput.value,loginkeyInput.value));
+    loginButton.addEventListener("click", () => Login(usernameInput.value));
     inputButtonContainer.appendChild(loginButton);
     
     var panelbackground = document.createElement("div");
     panelbackground.className = "panelbackground";
     document.querySelector("panel").appendChild(panelbackground);
     document.querySelector("panel").appendChild(loginPanel);
-    loginkey = "cwk6ujFXhd";
+ 
         //MakeLoginKey(10);
    // loginKeyDiv.innerHTML = "Put it to your profile description first to login: <b style='color: var(--orange);'>" + loginkey + "</b><br>(This is temporary login key, and it will change on page reload)";
 }
 
-function Login(username,loginkey)
+function Login(username)
 {
     if (username.length == 0) return;
     websocket.send(JSON.stringify({type: "login", username: username, loginkey: loginkey}));
@@ -82,7 +82,7 @@ function Login(username,loginkey)
 if (page == "login") 
 {
     websocket.onopen = () => {
-        loginkey = "cwk6ujFXhd";
+    
     }
     websocket.onmessage = message =>
     {
