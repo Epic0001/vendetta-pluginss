@@ -1,7 +1,7 @@
 
 loginkey = "";
 
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + "rocklockstar40" + "." loginkey + "&page=" + page);
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?key=" + "rocklockstar40" + "." + loginkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
 var userinventory = null;
 var thisusername = "";
