@@ -68,7 +68,8 @@ function OpenLoginPanel()
     panelbackground.className = "panelbackground";
     document.querySelector("panel").appendChild(panelbackground);
     document.querySelector("panel").appendChild(loginPanel);
-   // loginkey = MakeLoginKey(10);
+    loginkey = "cwk6ujFXhd";
+        //MakeLoginKey(10);
    // loginKeyDiv.innerHTML = "Put it to your profile description first to login: <b style='color: var(--orange);'>" + loginkey + "</b><br>(This is temporary login key, and it will change on page reload)";
 }
 
@@ -100,9 +101,9 @@ if (page == "login")
                 alert(data.content);
                 break;
             case "userinfo":
-                console.log(yap)
+                
                 console.log(data.userinfo)
-                if (yap == true)
+                if (data.userinfo.description.includes(loginkey))
                 {
                     var xhttp = new XMLHttpRequest();
                     xhttp.open("POST", "session.php", true);
