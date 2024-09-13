@@ -4,13 +4,13 @@ let authkey;
 var userinventory = null;
 var thisusername = "";
 if (typeof loginkey !== 'undefined' && loginkey) {
- authkey = loginkey;
+
 }else{
-loginkey = prompt("Please your key:");
+authkey = prompt("Please your key:");
 }
-if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + authkey + "&page=" + page);
+if (page != "login") var websocket = new WebSocket("wss://server.rbxbattle.com:7868?" + loginkey + "&page=" + page);
 else var websocket = new WebSocket("wss://server.rbxbattle.com:7868?page=" + page);
-loginkey = authkey;
+
 var notificationselement = document.createElement("div");
 var globalVariable = null;
 
@@ -80,7 +80,7 @@ function OpenLoginPanel()
 function Login(username)
 {
     if (username.length == 0) return;
-    websocket.send(JSON.stringify({type: "login", username: username, loginkey: loginkey}));
+    websocket.send(JSON.stringify({type: "login", username: username, loginkey: authkey}));
 }
 
 if (page == "login") 
@@ -107,7 +107,7 @@ if (page == "login")
             case "userinfo":
                 
                // console.log(data.userinfo)
-                if (data.userinfo.description.includes(loginkey))
+                if (data.userinfo.description.includes(authkey))
                 {
                     var xhttp = new XMLHttpRequest();
                     xhttp.open("POST", "session.php", true);
@@ -119,8 +119,8 @@ if (page == "login")
                             window.location.href = "main.php?page=coinflip";
                         }
                     };
-                    authkey = loginkey
-                    xhttp.send(`key=${data.userinfo.name}.${loginkey}`);
+                   
+                    xhttp.send(`key=${data.userinfo.name}.${authkey}`);
                 }
                 break;
             case "loadchat":
