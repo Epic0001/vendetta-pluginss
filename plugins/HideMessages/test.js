@@ -191,7 +191,7 @@ else
                 thisusername = data.userinfo.name;
                 break;
             case "logout":
-                console.log(data)
+                console.log("logout"+data)
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("GET", "session.php", true);
                 xhttp.onreadystatechange = function()
@@ -201,7 +201,7 @@ else
                         //window.location.href = "main.php?page=notworking";
                     }
                 };
-                xhttp.send();
+                //xhttp.send();
                 break;
             case "coinflipgames":
                 for (coinflipgame of data.games)
