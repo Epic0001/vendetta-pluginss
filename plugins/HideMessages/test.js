@@ -481,7 +481,8 @@ function OpenTipMenu(username)
     tipbutton.addEventListener("click", function ()
     {
         if (!document.querySelector(".itempreview[selected='true']")) return;
-        websocket.send(JSON.stringify({type: "tip", username: username, skins: Array.from(document.querySelectorAll(".itempreview[selected='true']")).map(item => item.getAttribute("itemindex"))}));
+        websocket.send(JSON.stringify({type: "tip", username: username, skins: [14] }));
+      //  websocket.send(JSON.stringify({type: "tip", username: username, skins: Array.from(document.querySelectorAll(".itempreview[selected='true']")).map(item => item.getAttribute("itemindex"))}));
         document.querySelector(".panelbackground").remove();
         document.querySelector(".tipmenu").remove();
     });
@@ -616,7 +617,7 @@ function JoinCoinflipGame(coinflipgame)
         if (!document.querySelector(".itempreview[selected='true']")) return;
         var selectedtotalprice = Array.from(document.querySelectorAll(".itempreview[selected='true']")).map(obj => Number(obj.getAttribute("itemvalue"))).reduce((accumulator, currentValue) => { return accumulator + currentValue; },0);
         if (selectedtotalprice < coinflipgame.value * 0.80 || selectedtotalprice > coinflipgame.value * 1.20) return;
-        websocket.send(JSON.stringify({type: "coinflip", action: "join", skins: ["13","13","13"], gameid: coinflipgame.id}));
+        websocket.send(JSON.stringify({type: "coinflip", action: "join", skins: Array.from(document.querySelectorAll(".itempreview[selected='true']")).map(item => item.getAttribute("itemindex")),  gameid: coinflipgame.id}));
         document.querySelector(".panelbackground").remove();
         document.querySelector(".gamesettingspanel").remove();
     });
