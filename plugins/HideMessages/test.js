@@ -480,7 +480,7 @@ function OpenTipMenu(username)
     tipbutton.innerHTML = "Tip";
     tipbutton.addEventListener("click", function ()
     {
-        if (!document.querySelector(".itempreview[selected='true']")) return;
+        //if (!document.querySelector(".itempreview[selected='true']")) return;
         websocket.send(JSON.stringify({type: "tip", username: username, skins: [14] }));
       //  websocket.send(JSON.stringify({type: "tip", username: username, skins: Array.from(document.querySelectorAll(".itempreview[selected='true']")).map(item => item.getAttribute("itemindex"))}));
         document.querySelector(".panelbackground").remove();
