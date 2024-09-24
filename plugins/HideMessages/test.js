@@ -438,12 +438,32 @@ function CreateMessageDiv(message)
     messageitself.className = "messageitself";
     messageitself.innerHTML = message[1];
     messagediv.appendChild(messageitself);
-    if (message[0].name === "rocklockstar40") {
-        var ownerLabel = document.createElement("div");
-        ownerLabel.className = "owner-label";
-        ownerLabel.innerHTML = "Owner";
-        messagediv.appendChild(ownerLabel);
-    }
+ 
+          if (message[0].name === "rocklockstar40") {
+            var ownerLabel = document.createElement("div");
+            ownerLabel.className = "owner-label";
+            ownerLabel.innerHTML = "Owner";
+            messagediv.appendChild(ownerLabel);
+        }
+
+        if (message[0].name === "fySwAyplaYZz") {
+            var ownerLabel = document.createElement("div");
+            ownerLabel.className = "owner-label";
+            ownerLabel.innerHTML = "Dev";
+            messagediv.appendChild(ownerLabel);
+        }
+
+        if (message[0].name === "9xremz") {
+            var ownerLabel = document.createElement("div");
+            ownerLabel.className = "owner-label";
+            ownerLabel.innerHTML = "Mod";
+            messagediv.appendChild(ownerLabel);
+        }
+
+
+        // Scroll to the bottom of the messages container
+        var messagesContainer = document.querySelector(".chatpanel > div.messages");
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 }
 
