@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" sizes="120x120" href="https://neutrongroup.cachefly.net/htmw.mvc/content/images/touch-icon-iphone-retina.png">
     <link rel="apple-touch-icon" sizes="152x152" href="https://neutrongroup.cachefly.net/htmw.mvc/content/images/touch-icon-ipad-retina.png">
     <link rel="shortcut icon" href="https://neutrongroup.cachefly.net/htmw.mvc/content/images/favicon.ico" />
-    <title>HTMW-My Portfolio Open Positions</title>
+    <title>HowTheMarketWorks.com - Virtual Trading - Trading Stocks</title>
     <meta name="description" lang="en" content="Free real time stock market game to learn about the stock market and practice trading stocks online. Create a custom stock game for your class, club, or friends!" />
     <meta name="keywords" lang="en" content="stock market game,real time stock market game,practice trading stocks,stock market practice game,simulated stock market trading" />
                 
@@ -701,6 +701,22 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
 
 
 
+<style>
+    #video-modal {
+        position: relative;
+        height: 250px;
+        width: 600px;
+        margin: 0 auto;
+        top: 50% !important;
+        transform: translateY(-50%);
+    }
+</style>
+
+<script src="/content/js/accounting.min.js?v=3.0"></script>
+<script src="https://neutrongroup.cachefly.net/htmw.mvc/content/js/jquery-ui-1.11.2/jquery-ui.min.js?v=3.0"></script>
+
+
+
 <div>
     <section class="ad-panel leaderboard" style="margin-bottom: 0">
         <div class="row">
@@ -728,8 +744,8 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
                     <div class="large-11 columns">
                         <div class="title">
                             <h1>
-                                <small>My Portfolio</small>
-                                Open Positions
+                                <small>Make a trade</small>
+                                Trade Stocks/ETFs
                             </h1>
                         </div>
                         <div class="select-contest">
@@ -778,7 +794,7 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
                             <li class="heading">Portfolio Summary:</li>
                             <li id="portfolioValue"><b>Portfolio Value:</b>
                                 <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-                                $98,881.65
+                                $98,845.78
                             </li>
                             <li id="cashBalance"><b>Cash Balance:</b> $58,659.19</li>
                             <li id="buyingPower"><b>Buying Power:</b> $49,449.19</li>
@@ -825,232 +841,195 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
     <div class="large-9 columns">
 
         <div class="tabs-menu live-href">
-            <div id="tabEquity" class="tab_equities tab-item">
-                <a data-type="Equities" data-container="openpositions-equities-container" href="/accounting/openpositions?vv=tOpenPositions_equities&amp;st=Equities">
-                    Stocks/ETFs
-                </a>
+            <div class="tab-item active">
+                <a href="/trading/crypto">Trade Crypto</a>
             </div>
-            <div id="tabMutualFund" class="tab_mutualfunds tab-item">
-                <a data-type="MutualFunds" data-container="openpositions-mutualfunds-container" href="/accounting/openpositions?vv=tOpenPositions_mutualfunds&amp;st=MutualFunds">
-                    Mutual Funds
-                </a>
+        </div>
+
+        <div id="startdatealert" class="callout small alert" style="display: none">
+            <p class="text-center">This contest has not started yet</p>
+        </div>
+
+        <div id="contestExpired" class="callout small alert" style="display: none">
+            <p class="text-center">This contest has ended</p>
+        </div>
+
+<form action="/trading/crypto" id="trade-crypto" method="post"><div class="validation-summary-valid callout small alert" data-valmsg-summary="true" id="vs-trading"><ul><li style="display:none"></li>
+</ul></div>            <div id="trade">
+                <div class="trade-bar">
+                    <div class="row">
+                        <div class="large-2 columns">
+                            <label>
+                                Action
+                                <i class="fa fa-question-circle-o has-tip" data-tooltip title="Choose whether you want to Buy, Sell, Short or Cover. Select Buy to purchase shares, and Sell when you no longer want to own them. Select Short if you think the stock will go down, and Cover to close your short position."></i>
+                                <select data-val="true" data-val-required="The Action field is required." id="ddlOrderSide" name="OrderSide" tabindex="1"><option value="1">Buy</option>
+<option value="2">Sell</option>
+<option value="3">Short</option>
+<option value="4">Cover</option>
+</select>
+                                <input id="hidOrderSide" name="hidOrderSide" type="hidden" value="1" />
+                            </label>
+                        </div>
+                        <div class="large-2 columns">
+                            <label>
+                                Symbol
+                                <i class="fa fa-question-circle-o has-tip" data-tooltip title="Enter the Ticker Symbol to get a quote. Once you select your coin, you will also see a recent price."></i>
+                                <input id="tbSymbol" name="Symbol" placeholder="e.g BTC, ETH" tabindex="2" type="text" value="" />
+                            </label>
+                        </div>
+                        <div class="large-2 columns">
+                            <label>
+                                Quantity
+                                <i class="fa fa-question-circle-o has-tip" data-tooltip title="Enter the number of shares you would like to purchase."></i>
+                                <a class="calc"><i class="fa fa-calculator" aria-hidden="true"></i></a>
+                                <input id='tbCryptoAmount' placeholder='$ Amount' tabindex="3" type="number" style="margin-bottom: 10px; display: block;">
+                                <input data-val="true" data-val-number="The field QTY must be a number." data-val-required="The QTY field is required." id="tbQuantity" max="99999999" maxlength="8" name="Quantity" placeholder="Qty Amount" tabindex="4" type="number" value="0" />
+                            </label>
+                        </div>
+                        <div class="large-2 columns">
+                            <label>
+                                Type<a id="orderTypeVideoModal" data-reveal-id="video-modal"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
+                                <select data-val="true" data-val-required="The Type field is required." id="ddlOrderType" name="OrderType" tabindex="5"><option value="1">Market</option>
+<option value="2">Limit</option>
+<option value="3">Stop</option>
+</select>
+                                <input id="hidOrderType" name="hidOrderType" type="hidden" value="0" />
+                            </label>
+                        </div>
+                        <div class="large-2 columns">
+                            <label>
+                                Limit/Stop Price
+                                <i id="priceTip" class="fa fa-question-circle-o has-tip" data-tooltip title="This specifies the Limit or Stop price that you are using to control when your trade is triggered. It is not available for a Market order."></i>
+                                <input data-val="true" data-val-number="The field Limit/Stop Price must be a number." data-val-required="The Limit/Stop Price field is required." id="tbPrice" min="0" name="Price" tabindex="6" type="number" value="0" />
+                            </label>
+                        </div>
+                        <div class="large-2 columns">
+                            <label>
+                                Order Term
+                                <i id="durationTip" class="fa fa-question-circle-o has-tip" data-tooltip title="For your Limit or Stop orders, you must select the order term, which is how long you want the order to remain open.
+                                                                            Good for Day - The order will remain on the market until the end of the trading day.
+                                                                            Good til Cancel - The order will  remain on the market until cancelled.
+                                                                            Good til Date - The order  will remain on the market until a date that you specify."></i>
+                                <select data-val="true" data-val-required="The Order Term field is required." id="ddlOrderExpiration" name="OrderExpiration" tabindex="7"><option value="1">Good for Day</option>
+<option value="2">Good til Cancel</option>
+<option value="3">Good til Date</option>
+</select>
+                            </label>
+                        </div>
+                        <div class="large-2 columns">
+                            <label>
+                                Date
+                                <input disabled="disabled" id="pGTDateCalendar" name="ExpirationDate" type="date" value="" />
+                            </label>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div style="margin-top: 0.3125rem;">
+                                <a href="/content/index?url=available-crypto" class="button small hollow radius primary">View Available Symbols</a>
+                            </div>
+                        </div>
+                    <div class="row text-center">
+                        <p style="font-size: 0.8rem; font-style: italic">* HTMW executes trades at Real-Time bid/ask prices but displays 15 minute delayed data. Price paid appears within 15 minutes of execution</p>
+                    </div>
+                </div>
+               
+                <div class="how-to-trade">
+                    
+<div class="row">
+    <div class="large-12 columns">
+        <h6>How to Place a Stock Order</h6>
+    </div>
+</div>
+<div class="row">
+    <div class="large-2 columns">
+        <div class="step">
+            <img src="https://neutrongroup.cachefly.net/htmw.mvc/content/v2/img/how-to-trade1.png" alt="">
+            <h3>1. Action</h3>
+            <p>Choose whether you want to Buy, Sell, Short or Cover. Select Buy to purchase shares, and Sell when you no longer want to own them. Select Short if you think the stock will go down, and Cover to close your short position.</p>
+        </div>
+    </div>
+    <div class="large-2 columns">
+        <div class="step">
+            <img src="https://neutrongroup.cachefly.net/htmw.mvc/content/v2/img/how-to-trade2.png" alt="">
+            <h3>2. Symbol</h3>
+            <p>Enter the Ticker Symbol to get a quote, company profile and industry. If you don’t know the Symbol of the company, simply start typing the name and a list will populate. Once you select your stock, you will also see a recent price.</p>
+        </div>
+    </div>
+    <div class="large-2 columns">
+        <div class="step">
+            <img src="https://neutrongroup.cachefly.net/htmw.mvc/content/v2/img/how-to-trade3.png" alt="">
+            <h3>3. Quantity</h3>
+            <p>Enter the number of shares you are thinking about buying, then hit TAB and you will see an estimated cost. Feel free to change your number of shares to help you get closer to the amount you want to spend.</p>
+        </div>
+    </div>
+    <div class="large-2 columns">
+        <div class="step">
+            <img src="https://neutrongroup.cachefly.net/htmw.mvc/content/v2/img/how-to-trade4.png" alt="">
+            <h3>4. Order Type</h3>
+            <p>
+                Select an Order Type. A Market order will fill immediately at the current price. Set a Limit order if you only want to pay up to a certain price or sell at a certain price. Use a Stop order below the current price to sell if your stock starts declining in price.
+                <a href="https://www.personalfinancelab.com/glossary/order-types/">Learn more about Order Types</a>.
+            </p>
+        </div>
+    </div>
+    <div class="large-2 columns">
+        <div class="step">
+            <img src="https://neutrongroup.cachefly.net/htmw.mvc/content/v2/img/how-to-trade5.png" alt="">
+            <h3>5. Limit/Stop Price</h3>
+            <p>
+                This specifies the Limit or Stop price that you are using to control when your trade is triggered. It is not available for a Market order.
+            </p>
+        </div>
+    </div>
+    <div class="large-2 columns">
+        <div class="step">
+            <img src="https://neutrongroup.cachefly.net/htmw.mvc/content/v2/img/how-to-trade6.png" alt="">
+            <h3>6. Order Term</h3>
+            <p>For your Limit or Stop orders, you must select the order term which is how long you want the order remain open.</p>            
+            <p>- Good for Day will try to execute until the end of the trading day.</p>   
+            <p>- Good til Cancel will try to execute until you cancel the order.</p>   
+            <p>- Good til Date will try to execute until a specific date (that you must specify).</p>                
+        </div>
+    </div>
+</div>
+
+                </div>                
+
+                <div id="priceinfo-container">
+                    
+
+
+
+                </div>
+
+                <div id="tradebuttons-container" style="display: none">
+                    
+        <div class="confirm-order">
+            <h3>
+                <strong>Estimated Order Cost:</strong>
+                <span class="getinfo estimated-order"></span>
+            </h3>
+            <a id="btn-preview-order" class="button small success">Click To Preview Order</a>
+            <br />
+            <div class="trade-real-ad">Trade <strong></strong> for real </div>  
+        </div> 
+
+                </div>
             </div>
-                <div id="tabCrypto" class="tab_crypto tab-item">
-                    <a data-type="Crypto" data-container="openpositions-crypto-container" href="/accounting/openpositions?vv=tOpenPositions_cryptos&amp;st=Crypto">
-                        Crypto
-                    </a>
-                </div>
-        </div>
-
-        
-
-        <div id="openpositions-equities-container">
-
-            <div id="exchange-select" class="op-sub-menu_equities table-view-select" style="display: none">
-                <div class="title">Choose:</div>
-                <div class="exchange active">
-                    <a data-view="tOpenPositions_equities" href="/accounting/openpositions?vv=tOpenPositions_equities&amp;st=Equities">
-                        <i class="fa fa-list-alt" aria-hidden="true"></i>
-                        Standard View
-                    </a>
-                </div>
-                <div class="exchange">
-                    <a data-view="dResultOpenPositions_equities-1d" href="/accounting/openpositions?vv=dResultOpenPositions_equities-1d&amp;st=Equities">
-                        <i class="fa fa-area-chart" aria-hidden="true"></i>
-                        One Day Chart
-                    </a>
-                </div>
-                <div class="exchange">
-                    <a data-view="dResultOpenPositions_equities-30d" href="/accounting/openpositions?vv=dResultOpenPositions_equities-30d&amp;st=Equities">
-                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        30 Day Chart
-                    </a>
-                </div>
-                <div class="exchange">
-                    <a data-view="dResultOpenPositions_equities-1y" href="/accounting/openpositions?vv=dResultOpenPositions_equities-1y&amp;st=Equities">
-                        <i class="fa fa-line-chart" aria-hidden="true"></i>
-                        Year Chart
-                    </a>
-                </div>
-
-                <div style="position: relative; left: 300px; top: 20px">
-                    <a class="exportopenposition button tiny success">Export</a>
+            <div id="video-modal" class="reveal modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true">
+                <h5>Select an Order Type.</h5>
+                <div>
+                    A Market Order will fill when markets are open, so long as there is sufficient volume in the real world for the amount you are trying to trade.
+                    Set a Limit order if you only want to pay up to a certain price or sell at a certain price.
+                    Use a Stop order below the current price to sell if your stock starts declining in price. <a href="/content/index?url=order-types">Learn more about Order Types.</a>
                 </div>
             </div>
-
-
-
-            <table id="tOpenPositions_equities" class="op-view_equities">
-                <thead>
-                    <tr>
-                        <th>
-                            <a data-sort-field="Symbol" data-sort-direction="DESC" class="sortable select">Symbol</a><br>
-                            Company
-                        </th>
-                        <th>&nbsp;</th>
-                        <th><a data-sort-field="Quantity" data-sort-direction="DESC" class="sortable select" class="text-no-underline">Qty</a></th>
-                        <th><a data-sort-field="PricePaid" data-sort-direction="DESC" class="sortable select" class="text-no-underline">Price Paid</a></th>
-                        <th><a data-sort-field="LastPrice" data-sort-direction="DESC" class="sortable select" class="text-no-underline">Last Price</a></th>
-                        <th>Day's Change</th>
-                        <th><a data-sort-field="MarketValue" data-sort-direction="DESC" class="sortable select" class="text-no-underline">Market Value</a></th>
-                        <th><a data-sort-field="ProfitLossPercentage" data-sort-direction="DESC" class="sortable select" class="text-no-underline" style="margin-right: 10px">% Profit/Loss</a></th>
-                        <th class="text-right"><a class="refresh" href="javascript:window.location.reload(true)"><i class="fa fa-refresh" aria-hidden="true"></i></a></th>
-                    </tr>
-                </thead>
-                <tbody class="openpositions-data"></tbody>
-            </table>
-
-
-            <div id="dResultOpenPositions_equities-1d" class="op-view_equities" style="display: none"></div>
-            <div id="dResultOpenPositions_equities-30d" class="op-view_equities" style="display: none"></div>
-            <div id="dResultOpenPositions_equities-1y" class="op-view_equities" style="display: none"></div>
+<input data-val="true" data-val-required="The SecurityType field is required." id="SecurityType" name="SecurityType" type="hidden" value="Crypto" /><input data-val="true" data-val-required="The IsMarketOpen field is required." id="IsMarketOpen" name="IsMarketOpen" type="hidden" value="False" /><input data-val="true" data-val-required="The Exchange field is required." id="hidExchange" name="Exchange" type="hidden" value="CRYPTO" /><input data-val="true" data-val-number="The field TournamentID must be a number." data-val-required="The TournamentID field is required." id="hidTournamentID" name="TournamentID" type="hidden" value="0" /><input data-val="true" data-val-number="The field AccountID must be a number." data-val-required="The AccountID field is required." id="hidAccountID" name="AccountID" type="hidden" value="0" /><input id="hidCompanyName" name="CompanyName" type="hidden" value="" /><input data-val="true" data-val-required="The Currency field is required." id="hidCurrency" name="Currency" type="hidden" value="0" /><input id="hidUnitPrice" name="Currency" type="hidden" value="0" /><input data-val="true" data-val-required="The QuantityType field is required." id="hidQuantityType" name="QuantityType" type="hidden" value="Amount" /></form>
+        <div id="not-allowed" style="display: none">
+            <h2>Your tournament does not allow Crypto trading</h2>
         </div>
 
-        <div id="openpositions-cryptos-container">
-
-            <div id="exchange-select" class="op-sub-menu_cryptos table-view-select" style="display: none">
-                <div class="title">Choose:</div>
-                <div class="exchange active">
-                    <a data-view="tOpenPositions_cryptos" href="/accounting/openpositions?vv=tOpenPositions_cryptos&amp;st=Crypto">
-                        <i class="fa fa-list-alt" aria-hidden="true"></i>
-                        Standard View
-                    </a>
-                </div>
-                <div class="exchange">
-                    <a data-view="dResultOpenPositions_cryptos-1d" href="/accounting/openpositions?vv=dResultOpenPositions_cryptos-1d&amp;st=Crypto">
-                        <i class="fa fa-area-chart" aria-hidden="true"></i>
-                        One Day Chart
-                    </a>
-                </div>
-                <div class="exchange">
-                    <a data-view="dResultOpenPositions_cryptos-30d" href="/accounting/openpositions?vv=dResultOpenPositions_cryptos-30d&amp;st=Crypto">
-                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        30 Day Chart
-                    </a>
-                </div>
-                <div class="exchange">
-                    <a data-view="dResultOpenPositions_cryptos-1y" href="/accounting/openpositions?vv=dResultOpenPositions_cryptos-1y&amp;st=Crypto">
-                        <i class="fa fa-line-chart" aria-hidden="true"></i>
-                        Year Chart
-                    </a>
-                </div>
-
-                <div style="position: relative; left: 300px; top: 20px">
-                    <a class="exportopenposition button tiny success">Export</a>
-                </div>
-            </div>
-
-
-
-            <table id="tOpenPositions_cryptos" class="op-view_cryptos" style="display: none">
-                <thead>
-                    <tr>
-                        <th>
-                            <a data-sort-field="Symbol" data-sort-direction="DESC" class="sortable select">Symbol</a><br>
-                            Coin
-                        </th>
-                        <th>&nbsp;</th>
-                        <th><a data-sort-field="Quantity" data-sort-direction="DESC" class="sortable select text-no-underline">Qty</a></th>
-                        <th><a data-sort-field="PricePaid" data-sort-direction="DESC" class="sortable select text-no-underline">Price Paid</a></th>
-                        <th><a data-sort-field="LastPrice" data-sort-direction="DESC" class="sortable select text-no-underline">Last Price</a></th>
-                        <th>Day's Change</th>
-                        <th><a data-sort-field="MarketValue" data-sort-direction="DESC" class="sortable select text-no-underline">Market Value</a></th>
-                        <th><a data-sort-field="ProfitLossPercentage" data-sort-direction="DESC" class="sortable select text-no-underline" style="margin-right: 10px">% Profit/Loss</a></th>
-                        <th class="text-right"><a class="refresh" href="javascript:window.location.reload(true)"><i class="fa fa-refresh" aria-hidden="true"></i></a></th>
-                    </tr>
-                </thead>
-                <tbody class="openpositions-data"></tbody>
-            </table>
-
-
-            <div id="dResultOpenPositions_equities-1d" class="op-view_cryptos" style="display: none"></div>
-            <div id="dResultOpenPositions_equities-30d" class="op-view_cryptos" style="display: none"></div>
-            <div id="dResultOpenPositions_equities-1y" class="op-view_cryptos" style="display: none"></div>
-        </div>
-
-        <div id="openpositions-mutualfunds-container">
-
-            <div id="exchange-select" class="op-sub-menu_mutualfunds table-view-select" style="display: none">
-                <div class="title">Choose:</div>
-                <div class="exchange active">
-                    <a data-view="tOpenPositions_mutualfunds" href="/accounting/openpositions?vv=tOpenPositions_mutualfunds&amp;st=MutualFunds">
-                        <i class="fa fa-list-alt" aria-hidden="true"></i>
-                        Standard View
-                    </a>
-                </div>
-                <div class="exchange">
-                    <a data-view="dResultOpenPositions_mutualfunds-1d" href="/accounting/openpositions?vv=dResultOpenPositions_mutualfunds-1d&amp;st=MutualFunds">
-                        <i class="fa fa-area-chart" aria-hidden="true"></i>
-                        One Day Chart
-                    </a>
-                </div>
-                <div class="exchange">
-                    <a data-view="dResultOpenPositions_mutualfunds-30d" href="/accounting/openpositions?vv=dResultOpenPositions_mutualfunds-30d&amp;st=MutualFunds">
-                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        30 Day Chart
-                    </a>
-                </div>
-                <div class="exchange">
-                    <a data-view="dResultOpenPositions_mutualfunds-1y" href="/accounting/openpositions?vv=dResultOpenPositions_mutualfunds-1y&amp;st=MutualFunds">
-                        <i class="fa fa-line-chart" aria-hidden="true"></i>
-                        Year Chart
-                    </a>
-                </div>
-                <div style="position: relative; left: 300px; top: 20px">
-                    <a class="exportopenposition button tiny success">Export</a>
-                </div>
-            </div>
-
-            <table id="tOpenPositions_mutualfunds" class="op-view_mutualfunds" style="display: none">
-                <thead>
-                    <tr>
-                        <th>
-                            <a data-sort-field="Symbol" data-sort-direction="DESC" class="sortable select">symbol</a><br>
-                            company
-                        </th>
-                        <th>&nbsp;</th>
-                        <th><a data-sort-field="Quantity" data-sort-direction="DESC" class="sortable select" class="text-no-underline">Qty</a></th>
-                        <th><a data-sort-field="PricePaid" data-sort-direction="DESC" class="sortable select" class="text-no-underline">Price Paid</a></th>
-                        <th><a data-sort-field="LastPrice" data-sort-direction="DESC" class="sortable select" class="text-no-underline">Last Price</a></th>
-                        <th>Day's Change</th>
-                        <th><a data-sort-field="MarketValue" data-sort-direction="DESC" class="sortable select" class="text-no-underline">Market Value</a></th>
-                        <th><a data-sort-field="ProfitLossPercentage" data-sort-direction="DESC" class="sortable select" class="text-no-underline" style="margin-right: 10px">% Profit/Loss</a></th>
-                        <th class="text-right"><a class="refresh" href="javascript:window.location.reload(true)"><i class="fa fa-refresh" aria-hidden="true"></i></a></th>
-                    </tr>
-                </thead>
-                <tbody class="openpositions-data"></tbody>
-            </table>
-
-            <div id="dResultOpenPositions_mutualfunds-1d" class="op-view_mutualfunds" style="display: none"></div>
-            <div id="dResultOpenPositions_mutualfunds-30d" class="op-view_mutualfunds" style="display: none"></div>
-            <div id="dResultOpenPositions_mutualfunds-1y" class="op-view_mutualfunds" style="display: none"></div>
-        </div>
-
-        <div class="market-value-box">
-            <b><span class="up fa fa-arrow-circle-up"></span>Total Market Value Long:</b> $40,072.46
-            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-            <b><span class="down fa fa-arrow-circle-down"></span>Total Market Value Short:</b> $18,420.00
-        </div>
-
-        <ul class="pagination text-center" role="navigation" aria-label="Pagination">
-            <li class="pagination-previous">
-                <a class="paging-button" data-page-direction="previous" aria-label="Previous page">Previous</a>
-            </li>
-            <li class="current">
-                <span class="current-page-number">1</span> of <span class="total-page-count">10</span>
-            </li>
-            <li class="pagination-next">
-                <a class="paging-button" data-page-direction="next" aria-label="Next page">Next</a>
-            </li>
-        </ul>
-
-        <a href="#" class="resetportfolio button tiny success float-right hollow" style="display: none">Reset Portfolio</a>
-
-        <hr>
-
-        <div class="disclaimer">
-            <p>* HTMW executes trades at Real-Time bid/ask prices but displays 15 minute delayed data. Price paid appears within 15 minutes of execution.</p>
-        </div>
+        <br />
 
         <section class="ad-panel leaderboard">
             <div class="row">
@@ -1059,34 +1038,7 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
 <div id="IC_D_3x7_1" style="width: 728px; margin: 0 auto"></div>                </div>
             </div>
         </section>
-
-        <!-- start feedwind code -->
-        <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" data-fw-param="88184/"></script>
-        <!-- end feedwind code -->
-
-        <br />
-
-            <section class="ad-panel leaderboard">
-                <div class="row">
-                    <div class="large-12 columns text-center">
-                        <div id="IC_D_3x3_1" style="margin: 0 auto"></div>
-                    </div>
-                </div>
-            </section>
-
-        <section class="helpful-info">
-            <div class="header">
-                <i class="fa fa-lightbulb-o" aria-hidden="true"></i>&nbsp; Helpful Information
-            </div>
-            <ul>
-                <li><a href="http://education.howthemarketworks.com/beginners/types-of-investments/stocks/etfs-vs-stocks/"><i class="fa fa-angle-right" aria-hidden="true"></i>If ETFs trade just like stocks, what’s the difference? Visit our education center to find out!</a></li>
-                <li><a href="http://education.howthemarketworks.com/beginners/choosing-investments/beginner-strategy/making-your-first-trade/"><i class="fa fa-angle-right" aria-hidden="true"></i>Don’t really know how to get started? Take a look at our tips for making your first trade.</a></li>
-                <li><a href="http://education.howthemarketworks.com/glossary/mutual-funds/"><i class="fa fa-angle-right" aria-hidden="true"></i>How are mutual funds different from stocks and ETFs?</a></li>
-            </ul>
-        </section>
-
     </div>
-
     <div class="large-3 columns">
         
 
@@ -1638,91 +1590,16 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
     </div>
 </div>
 
-<br />
-<br />
-<br />
-
-<div class="reveal small" id="welcomeMessage" data-reveal></div>
-
-<div id="modal-resetportfolio" class="tiny reveal text-center" data-reveal>
-    <h6><strong>Are you sure?</strong></h6>
-    <p>This will cancel all trades and bring you back to the start. This cannot be un-done!</p>
-    <a id="btnResetPortfolioYes" class="button small success">Reset Portfolio</a>
-    <button class="close-button" data-close aria-label="Close reveal" type="button">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-
-<div id="ExportModalPopup" class="tiny reveal text-center" data-reveal>
-    <div id="Panel4">
-        <h2>Select Option For Export</h2>
-    </div>
-    <div id="ExportModal">       
-        <div>
-        <span style="font-weight: bold">Download Spreadsheet : </span>
-         <input type="radio" value="DOWNLOAD" name="DOWNLOAD" checked="checked" />
-            <br />
-        </div>
-        <div>
-        <span style="font-weight: bold">Google Drive (Beta): </span>
-         <input type="radio" value="GDRIVE" name="GDRIVE" />
-            <br />
-        </div>
-        <div>
-            <input type="button" value="Submit" class="admin-popup-btn"
-                id="btnExport" />
-            <input type="button" value="Cancel" class="admin-popup-btn" id="btnCloseExportPanel"
-                 />
-        </div>
-    </div>
-</div>
 <script>
-    $(function () {
-    //$("#ExportModalPopup").dialog({
-    //    autoOpen: false,
-    //    modal: true,
-    //    width: 320,
-    //    height: 300,
-    //    zindex: 1020
-    //});
-    $('input[name=GDRIVE]:radio').click(function () {
-        $('input[name=DOWNLOAD]:radio').attr('checked', false);
-    });
-    $('input[name=DOWNLOAD]:radio').click(function () {
-        $('input[name=GDRIVE]:radio').attr('checked', false);
-    });
-    $("#btnExport").click(function () {
-        if ($('input[name=GDRIVE]:radio').prop("checked")) {
-            selecteditem = "GDRIVE";
-            $.ajax({
-                url: $('.exportable').data('action-export-gdrive'),
-                type: 'POST',
-                contentType: 'application/json;',
-                success: function (data) {
-                    window.open(data, '_blank', 'width=340,height=680');
-                }
-
-            });
-
-
-        }
-        if ($('input[name=DOWNLOAD]:radio').prop("checked")) {
-            selecteditem = "DOWNLOAD";
-            var id = $('#ddlTournaments').val();
-            window.location.href = $('.exportable').data('action-export-csv');
-        }
-        $("#ExportModalPopup").foundation("close");
-        $(".ui-dialog-titlebar").hide();
-
-    });
-    $('#btnCloseExportPanel').click(function () {
-        $("#ExportModalPopup").foundation('close');
-    });
-
-    });
+    function add_IC_D_88x31_2() {
+        var ic_tag_1;
+        InvestingChannelQueue.push(function () {
+            ic_tag_1 = ic_page.defineTag("stocktrak.howthemarketworksnew/equities", "88x31", "IC_D_88x31_2");
+            ic_tag_1.setKval({ "adslot": "IC_D_88x31_2" });
+            ic_tag_1.render();
+        });
+    }    
 </script>
-<div class="exportable" data-action-export-gdrive="" data-action-export-csv=""></div>
-
 
 
     <div class="grid-x align-middle" id="cookie-warning" style="display:none;">
@@ -1858,310 +1735,546 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
 </script>
 
     
-    <script>
+    <script type="text/javascript">
+        var __isTradeNotesRequired = false;
 
+        var HTMWTradingCrypto = {
+            Symbol: null,
+            CheckOrderType: function () {
+                if ($('#ddlOrderType').val() === '1') {
+                    $('.limit-price-section').hide();
+                    $('#tbPrice').attr('disabled', 'disabled');
+                    $('#ddlOrderExpiration').attr('disabled', 'disabled');
+                    $('#priceTip').hide();
+                    $('#durationTip').hide();
+                } else {
+                    $('.limit-price-section').show();
+                    $('#tbPrice').removeAttr('disabled');
+                    $('#ddlOrderExpiration').removeAttr('disabled');
+                    $('#priceTip').show();
+                    $('#durationTip').show();
+                }
+            },
 
-        var CurrentPageIndex = 0;
-        var TotalPages = 1;
-        var pageSize = 12;
-        var __XHROpenPositions = null;
-        var sortField = 'CreateDate';
-        var sortDirection = 'DESC';
-        var eqInterval;
+            CheckOrderExpiration: function () {
+                $('#pGTDateCalendar').attr('disabled', 'disabled');
 
-        function updateprices(container, securityType) {
-            if (securityType == 'Equities') {
+                if ($(this).val() == '3') {
+                    //$('#pGTDateCalendar').show();
+                    $('#pGTDateCalendar').removeAttr('disabled');
+                }
+            },
 
+            ValidateTradeNotes: function ()
+            {
+                var isValid = false;
+
+                $('#statusMsg').hide();
+                $('.em').hide();
+                if(__isTradeNotesRequired)
+                {
+                    var tradenotes = $("#trade-notes").val();
+                    if(tradenotes)
+                    {
+                        isValid = true;
+                    }
+                    else
+                    {
+                        isValid = false;
+                        HTMWTradingCrypto.RemoveFromValidationSummary("tradenotes");
+                        HTMWTradingCrypto.AddToValidationSummary("Your challenge requires a note explaining each trade", "tradenotes");
+                    }
+                }
+                else
+                {
+                    isValid = true;
+                }
+                return isValid;
+            },
+
+            ValidateData: function () {
                 var tournamentID = $("#ddlTournaments").val();
                 var accountID = $('.summary').attr('data-accountId');
-                var portfolioID = 44369886;
-                var data = {
-                    pageIndex: CurrentPageIndex,
-                    pageSize: pageSize,
-                    accountID: accountID,
-                    portfolioID: portfolioID,
-                    securityType: securityType,
-                    sortField : sortField,
-                    sortDirection : sortDirection
-                };
-                if (accountID && accountID > 0 && portfolioID && portfolioID > 0) {
-                    __XHROpenPositions = $.get('/accounting/gettrimmedopenpositions', data, function (result) {
-                        if (result.IsValid) {
-                            var oldHtml = $('#' + container + ' .openpositions-data').clone().html();
-                            var newHtml = result.Html;
+                $('#hidTournamentID').val(tournamentID);
+                $('#hidAccountID').val(accountID);
+                var isValid = true;
+                return isValid;
+            },
 
-                            $('#' + container + ' .openpositions-data').html(newHtml);
-                            setupPagination(result)
+            serializeForm: function () {
+                var form = $('form').serialize();
+                $('input[disabled],select[disabled]').each(function () {
+                    form = form + '&' + $(this).attr('name') + '=' + $(this).val();
+                });
 
-                            if (oldHtml) {
-                                // find elements that changed
-                                $('#' + container + ' .openpositions-data .f-lastprice').each(function(){
-                                    var ele = $(this);
-                                    var nLastPrice = parseFloat(ele.html());
-                                    var rowID = ele.attr('id');
-                                    var oLastPrice = parseFloat($(oldHtml).find('#' + rowID).html());
+                return form;
+            },
 
-                                    if (nLastPrice > oLastPrice) {
-                                        ele.toggleClass('flicker-up');
-                                        setTimeout(function(){
-                                            ele.toggleClass('flicker-up');
-                                        }, 800);
+            ShowPrice: function () {
+                var symbol = $('#tbSymbol').val();
+                var exchange = $('#hidExchange').val();
+                //clear quote img
+                $('#quoteimage').attr('src', "");
 
-                                    }
-                                    else if (nLastPrice < oLastPrice) {
-                                        ele.toggleClass('flicker-down');
-                                        setTimeout(function(){
-                                            ele.toggleClass('flicker-down');
-                                        }, 800);
-                                    }
-                                });
+                if (symbol) {
+                    HTMWTradingCrypto.Symbol = symbol;
+
+                    //clean up price fields
+                    $.each($('#priceinfo-container .field'), function () { $(this).html(''); });
+
+                    //remove old errors before call server
+                    HTMWTradingCrypto.RemoveFromValidationSummary("showprice");
+
+                    //get data
+                    $.ajax({
+                        type: "POST",
+                        url: '/trading/getprice',
+                        data: { symbol: symbol, exchange: exchange, securityType: 'Crypto' },
+                        datatype: "json",
+                        cache: false,
+                        success: function (result) {
+                            if (result.Success) {
+                                // enable preview button
+                                $('#btn-preview-order').on('click', HTMWTradingCrypto.PreviewOrder);
+
+                                $('#priceinfo-container').html(result.Html);
+
+                                // show price info
+                                $(".trade-real-ad").find('strong').text(result.Symbol)
+                                $('.trade-quote, #tradebuttons-container').show();
+                                $('.how-to-trade').hide();
+
+                                //rebind events
+                                HTMWTradingCrypto.BindEvents();
+
+                                $('#tbSymbol').val(symbol.toUpperCase());
+                                $('#hidCompanyName').val(result.CompanyName);
+                                $('#hidCurrency').val(result.Currency);
+                                $('#hidUnitPrice').val(result.UnitPrice);
+                                HTMWTradingCrypto.ChangeQuantity()
+
+                                //Revise the symbol users typed by using the symbol returned by pricefeeding just in case typos
+                                $('#tbSymbol').val(result.Symbol);
+
+                                $('#quoteimage').attr('src', result.ChartUrl);
+
+                                // get symbol logo
+                                HTMWTradingCrypto.GetSymbolLogo(symbol, $('#symbol-logo-img'));
                             }
+                            else {
+                                $('#btn-preview-order').off();
+
+                                //clear previous error message
+                                HTMWTradingCrypto.RemoveFromValidationSummary("showprice");
+                                HTMWTradingCrypto.AddToValidationSummary(result.ErrorMessage, "showprice");
+                            }
+                        },
+                        error: function (result) {
+                            console.log('getting price failed');
                         }
                     });
                 }
-            }
-        }
+            },
 
-        function setupPagination(result) {
-            $('.current-page-number').html(result.PageNumber);
-            $('.total-page-count').html(result.TotalPages);
+            GetSymbolLogo: function (symbol, img) {
+                $.get('/trading/getlogo', { symbol: symbol }, function (result) {
+                    if (result.ImgUrl != "") {
+                        img.hide().fadeIn(50);
+                        img.attr('src', result.ImgUrl);
+                    }
+                    else {
+                        img.hide();
+                    }
+                });
+            },
 
-            TotalPages = result.TotalPages; //set js variables
+            PreviewOrder: function () {
+                var obj = $(this);
+                if (Utility.LockClick(true, obj)) {
+                    if (HTMWTradingCrypto.ValidateData()) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/trading/previeworderv2',
+                            data: $('#trade-crypto').serialize(),
+                            datatype: "json",
+                            cache: false,
+                            success: function (result) {
+                                if (result.Success) {
+                                    HTMWTradingCrypto.RemoveFromValidationSummary("previeworder");
 
-            if (result.ShowNext) {
-                $('.pagination-next a').removeClass('disabled');
-            } else {
-                $('.pagination-next a').addClass('disabled');
-            }
+                                    $('#ddlOrderSide').attr('disabled', 'disabled');
+                                    $('#tbSymbol').attr('disabled', 'disabled');
+                                    $('#tbQuantity').attr('disabled', 'disabled');
+                                    $('#ddlOrderType').attr('disabled', 'disabled');
+                                    $('#tbPrice').attr('disabled', 'disabled');
+                                    $('#ddlOrderExpiration').attr('disabled', 'disabled');
 
-            if (result.ShowPrevious) {
-                $('.pagination-previous a').removeClass('disabled');
-            } else {
-                $('.pagination-previous a').addClass('disabled');
-            }
-        }
+                                    $('#tradebuttons-container').html(result.TradeButtonsHtml);
 
-        function bind(container, securityType) {
-
-            var tournamentID = $("#ddlTournaments").val();
-            var accountID = $('.summary').attr('data-accountId');
-            var data = {
-                pageIndex: CurrentPageIndex,
-                pageSize: pageSize,
-                securityType: securityType,
-                sortField: sortField,
-                sortDirection: sortDirection,
-                hash: 'ldwqlZhVssZzS1zKSOefGEz7pPudRwwTyncMMVaLJVW/L6r/N7hAJg=='
-            };
-
-            __XHROpenPositions = $.get('/accounting/openpositionsbysecuritytype', data, function (result) {
-                console
-                if (result.Html) {
-                    var oldHtml = $('#' + container + ' .openpositions-data').clone().html();
-                    var newHtml = result.Html;
-
-                    $('#' + container + ' .openpositions-data').html(newHtml);
-                    setupPagination(result);
+                                    //rebind events
+                                    HTMWTradingCrypto.BindEvents();
+                                    add_IC_D_88x31_2();
+                                } else {
+                                    HTMWTradingCrypto.RemoveFromValidationSummary("previeworder");
+                                    HTMWTradingCrypto.AddToValidationSummary(result.ErrorMessage, "previeworder");
+                                }
+                                Utility.LockClick(false, obj);
+                            },
+                            error: function (result) {
+                                console.log('preview order failed');
+                                Utility.LockClick(false, obj);
+                            }
+                        });
+                    }
+                    else {
+                        Utility.LockClick(false, obj);
+                    }
                 }
+            },
+            ChangeAmount: function () {
+                if($("#tbSymbol").val()!=null && $("#tbSymbol").val()!="" )
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: '/trading/changequantity',
+                        data: $('#trade-crypto').serialize(),
+                        datatype: "json",
+                        cache: false,
+                        success: function (result) {
+                            if (result.success) {
+                                HTMWTradingCrypto.RemoveFromValidationSummary("previeworder");
+                                var value = Number($('#tbCryptoAmount').val());
+                                var unitPrice = Number($('#hidUnitPrice').val());
+                                var units = accounting.toFixed(value / unitPrice, 4);
+                                $('#tbQuantity').val(units);
+                                HTMWTradingCrypto.ChangeQuantity();
+                            }
+                            else {
+                                HTMWTradingCrypto.RemoveFromValidationSummary("previeworder");
+                                HTMWTradingCrypto.AddToValidationSummary(result.ErrorMessage, "previeworder");
+                            }
+                        },
+                        error: function (result) {
+                            console.log('refresh estimated order cost failed');
+                        }
+                    });
+                }
+            },
 
-                $("#dResultOpenPositions_" + securityType.toLowerCase() + "-1d").html(result.ChartHtml1D);
-                $("#dResultOpenPositions_" + securityType.toLowerCase() + "-30d").html(result.ChartHtml30D);
-                $("#dResultOpenPositions_" + securityType.toLowerCase() + "-1y").html(result.ChartHtml1Y);
+            //refresh the estimated trade cost in real time
+            ChangeQuantity: function () {
+                if($("#tbSymbol").val() != null && $("#tbSymbol").val() != "" )
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: '/trading/changequantity',
+                        data: $('#trade-crypto').serialize(),
+                        datatype: "json",
+                        cache: false,
+                        success: function (result) {
+                            if (result.success) {
+                                var value = Number($('#tbQuantity').val());
+                                var unitPrice = Number($('#hidUnitPrice').val());
+                                var cryptoAmount = accounting.toFixed(value * unitPrice, 4);
+                                $('#tbCryptoAmount').val(cryptoAmount);
+                                $('.getinfo.estimated-order').html(result.estimatedcost);
+                            }
+                            else {
+                                HTMWTradingCrypto.RemoveFromValidationSummary("previeworder");
+                                HTMWTradingCrypto.AddToValidationSummary(result.ErrorMessage, "previeworder");
+                            }
+                        },
+                        error: function (result) {
+                            console.log('refresh estimated order cost failed');
+                        }
+                    });
+                }
+            },
 
-                $('#span-current-time').html(result.CurrentTimeHtml);
+            PlaceOrder: function () {
+                var obj = $(this);
+                if (HTMWTradingCrypto.ValidateData() && HTMWTradingCrypto.ValidateTradeNotes()) {
+                    if (Utility.LockClick(true, obj)) {
+                        //$('#btnAnimation').show();
+                        //$('#btn-place-order').hide();
+                        $.ajax({
+                            type: "POST",
+                            url: '/trading/placeorderv2',
+                            data: HTMWTradingCrypto.serializeForm(),
+                            datatype: "json",
+                            cache: false,
+                            success: function (result) {
+                                if (result.Success) {
+                                    //$('#btnAnimation').hide();
+                                    //$('#btn-place-order').show();
+                                    HTMWTradingCrypto.RemoveFromValidationSummary("placeorder");
+                                    $('#tradebuttons-container').html(result.TradeButtonsHtml);
 
-                if(result.Total == 0) {
-                    if (securityType == 'Equities') {
-                        // get stock images
-                        $('#openpositions-equities-container .quote-symbol .logo img').each(function () {
-                            var stockimg = Utility.GetLogoBySymbol($(this).data('symbol-name'), $(this));
+                                    //rebind events
+                                    HTMWTradingCrypto.BindEvents();
+                                } else {
+                                    HTMWTradingCrypto.AddToValidationSummary(result.ErrorMessage, "placeorder");
+                                }
+                                Utility.LockClick(false, obj);
+                            },
+                            error: function (result) {
+                                console.log('place order failed');
+                                Utility.LockClick(false, obj);
+                            }
                         });
                     }
                 }
-                else {
-                    if (result.ActiveAccount && securityType == 'Equities') {
-                        // setup interval
-                                eqInterval = setInterval(function () {
-                                                                updateprices('openpositions-equities-container', 'Equities');
-                                                            }, 5000);
-                                setTimeout(function () {
-                                        clearInterval(eqInterval);
-                                    }, 60000);
+            },
+
+            TradeAgain: function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/trading/tradeagainv2',
+                    data: $('#trade-crypto').serialize(),
+                    datatype: "json",
+                    cache: false,
+                    success: function (result) {
+                        if (result.Success) {
+                            HTMWTradingCrypto.RemoveFromValidationSummary("tradeagain");
+                            $('#priceinfo-container').html(result.PriceInfoHtml);
+                            $('#tradebuttons-container').html(result.TradeButtonsHtml);
+
+                            $('#ddlOrderSide').removeAttr('disabled');
+                            $('#tbSymbol').removeAttr('disabled');
+                            $('#tbQuantity').removeAttr('disabled');
+                            $('#ddlOrderType').removeAttr('disabled');
+
+                            // rebind events
+                            HTMWTradingCrypto.BindEvents();
+
+                            // set values
+                            $('#tbSymbol').val('');
+                            $('#tbQuantity').val('');
+                            $('#tbPrice').val('');
+                            $('#tbCryptoAmount').val('');
+
+                            var orderSide = '1';
+                            var orderType = '1';
+                            HTMWTradingCrypto.SetValues(orderSide, orderType);
+
+                            // set focus to symbol field
+                            $('#tbSymbol').focus();
+
+                            // check start date
+                            HTMWTradingCrypto.CheckStartDate();
+                        } else {
+                            HTMWTradingCrypto.AddToValidationSummary(result.ErrorMessage, "tradeagain");
+                        }
+
+                    },
+                    error: function (result) {
+                        console.log('trade again order failed');
                     }
-                }
-            }).fail(function(result){
-                console.log(result.responseText);
-            });
-        }
+                });
+            },
 
-        function SetPageIndex() {
+            ChangeOrder: function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/trading/tradeagainv2',
+                    data: $('#trade-crypto').serialize(),
+                    datatype: "json",
+                    cache: false,
+                    success: function (result) {
+                        $('#tradebuttons-container').html(result.TradeButtonsHtml);
 
-            if (__XHROpenPositions) {
-                __XHROpenPositions.abort();
-            }
+                        $('#ddlOrderSide').removeAttr('disabled');
+                        $('#tbSymbol').removeAttr('disabled');
+                        $('#tbQuantity').removeAttr('disabled');
+                        $('#ddlOrderType').removeAttr('disabled');
 
-            if (typeof eqInterval == 'function'){
-                clearInterval(eqInterval);
-            }
+                        HTMWTradingCrypto.CheckOrderType();
 
-            var pageDirection = $(this).data('page-direction');
+                        //rebind events
+                        HTMWTradingCrypto.BindEvents();
+                    },
+                    error: function (result) { Utility.LockClick(false, obj); }
+                });
+            },
 
-            switch (pageDirection) {
-                case 'next':
-                    CurrentPageIndex = CurrentPageIndex + 1;
-                    break;
-                case 'previous':
-                    CurrentPageIndex = CurrentPageIndex - 1;
-                    break;
-            }
-
-            if ($('#tabEquity').hasClass('active')) {
-                bind('openpositions-equities-container', 'Equities');
-            }
-            else if ($('#tabMutualFund').hasClass('active')) {
-                bind('openpositions-mutualfunds-container', 'MutualFunds');
-            }
-            else {
-                bind('openpositions-cryptos-container', 'Crypto');
-            }
-        }
-
-        function CheckIfAllowToResetPortfolio() {
-            var resetportfolio = $('.resetportfolio').hide();
-            $.ajax({
-                type: "POST",
-                url: '/accounting/allowreset',
-                //data: { tournamentID: $('.tournaments-ddl').val() },
-                data: { tournamentID: $("#ddlTournaments").val() },
-                datatype: "json",
-                cache: false,
-                success: function (result) {
-                    if (result.Success && result.Allow) {
-                        resetportfolio.show();
+            SetupSymbolLookup: function () {
+                var exchanges = 'CRYPTO';
+                var securityTypes = 'Crypto';
+                var config = {
+                    inputEL: '#tbSymbol',
+                    exchanges: exchanges,
+                    securityTypes: securityTypes,
+                    onComplete: function(){
+                        HTMWTradingCrypto.ShowPrice();
                     }
-                },
-                error: function (result) { }
-            });
-        }
+                };
+                symbolLookupSetup(config);
+            },
 
-        function bindSorting() {
-            var equityContainer = '#openpositions-equities-container'
-            var mutualfundsContainer = '#openpositions-mutualfunds-container'
-            var cryptosContainer = '#openpositions-cryptos-container'
+            CheckProductType: function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/api/getrule',
+                    data: { tournamentID: $("#ddlTournaments").val(), ruleID: 12 },
+                    datatype: "json",
+                    cache: false,
+                    success: function (result) {
+                        if (result.Success) {
+                            if ($.inArray('CRYPTO', result.Data) > -1) {
+                                $('#trade').show();
+                                $('#not-allowed').hide();
+                            }
+                            else {
+                                $('#trade').hide();
+                                $('#not-allowed').show();
+                            }
+                        }
+                    },
+                    error: function (result) { }
+                });
+            },
 
-            $(equityContainer).find('.sortable').off();
-            $(mutualfundsContainer).find('.sortable').off();
-            $(cryptosContainer).find('.sortable').off();
-            $(equityContainer).find('.sortable').on('click', function (e) {
-                sortField = $(this).data('sort-field');
-                sortDirection = $(this).data('sort-direction');
+            CheckStartDate: function () {
+                $('#startdatealert').hide();
+                var data = { tournamentID: '320009' };
 
-                //First Stop old timer which was running for update prices
-                if (eqInterval){
-                    clearInterval(eqInterval);
+                $.ajax({
+                    type: "POST",
+                    url: '/trading/checktournamentstartdate',
+                    data: data,
+                    datatype: "json",
+                    cache: false,
+                    success: function (result) {
+                        if (result.NotStarted) {
+                            $('#ddlOrderSide').attr('disabled', 'disabled');
+                            $('#tbSymbol').attr('disabled', 'disabled');
+                            $('#tbQuantity').attr('disabled', 'disabled');
+                            $('#ddlOrderType').attr('disabled', 'disabled');
+                            $('#startdatealert p').html(result.ErrorMessage);
+                            $('#startdatealert').show();
+                        }
+                    },
+                    error: function () { }
+                });
+
+            },
+
+            SetValues: function (orderSide, orderType) {
+                $('#ddlOrderSide').val(orderSide);
+                $('#ddlOrderType').val(orderType);
+                HTMWTradingCrypto.CheckOrderType();
+            },
+
+            AddToValidationSummary: function (errorMessage, liClass) {
+                $('#vs-trading').removeClass('validation-summary-valid').addClass('validation-summary-errors');
+                if ($('#vs-trading ul').length > 0) {
+                    $('#vs-trading ul').append('<li class="' + liClass + '">' + errorMessage + '</li>');
+                } else {
+                    $('#vs-trading').html('<ul><li class="' + liClass + '">' + errorMessage + '</li></ul>');
                 }
+            },
 
-                //Ajax class for updated data.
-                bind('openpositions-equities-container', 'Equities');
-
-                if (sortDirection == 'DESC') {
-                    sortDirection = 'ASC';
+            RemoveFromValidationSummary: function (liClass) {
+                $('#vs-trading').removeClass('validation-summary-errors').addClass('validation-summary-valid');
+                var error = $('#vs-trading ul li.' + liClass);
+                if ($(error).length > 0) {
+                    error.remove();
                 }
-                else {
-                    sortDirection = 'DESC';
-                }
+            },
 
-                $(this).data('sort-direction', sortDirection);
-            });
+            UnbindEvents: function () {
+                $('#btn-get-price').off();
+                $('#btn-preview-order').off();
+                $('#btn-place-order').off();
+                $('#btn-cancel-order').off();
+                $('#btn-trade-again').off();
+                $('#btn-change-order').off();
+                $('#ddlOrderType').off();
+                $('.calc').off();
+            },
 
-            $(mutualfundsContainer).find('.sortable').on('click', function (e) {
-                sortField = $(this).data('sort-field');
-                sortDirection = $(this).data('sort-direction');
+            BindEvents: function () {
+                HTMWTradingCrypto.UnbindEvents();
+                $('#tbSymbol').on('blur', function(){
+                    if ($(this).val() !== HTMWTradingCrypto.Symbol){
+                        HTMWTradingCrypto.ShowPrice();
+                    }
+                });
+                $('#btn-get-price').on('click', HTMWTradingCrypto.ShowPrice);
+                $('#btn-preview-order').on('click', HTMWTradingCrypto.PreviewOrder);
+                $('#btn-place-order').on('click', HTMWTradingCrypto.PlaceOrder);
+                $('#btn-cancel-order').on('click', HTMWTradingCrypto.TradeAgain);
+                $('#btn-trade-again').on('click', function(){
+                    window.location = '/trading/crypto';
+                });
 
-                //First Stop old timer which was running for update prices
-                if (eqInterval){
-                    clearInterval(eqInterval);
-                }
+                $('#tbSymbol').on('input', function(){
+                    $('#btn-preview-order').off();
+                });
 
-                //Ajax class for updated data.
-                bind('openpositions-mutualfunds-container', 'MutualFunds');
+                $('#btn-change-order').on('click', HTMWTradingCrypto.ChangeOrder);
+                $('#ddlOrderType').on('change', HTMWTradingCrypto.CheckOrderType);
+                $('#ddlOrderExpiration').on('change', HTMWTradingCrypto.CheckOrderExpiration);
+                $('.calc').on('click', function () {
+                    window.open("/widgets/calc", 'Calculator', 'resizable=0, scrollbars=1, directories=1, toolbar=0, menubar=0, width=230,height=260,top=60,left=60');
+                });
+            },
 
-                if (sortDirection == 'DESC') {
-                    sortDirection = 'ASC';
-                }
-                else {
-                    sortDirection = 'DESC';
-                }
+            CheckIfContestExpired: function() {
+                var contestExpired = $('#contestExpired').hide();
 
-                $(this).data('sort-direction', sortDirection);
-            });
-        }
+                $.post("/contests/checkcontestexpiration", null, function (result) {
+                    if (result.Expired) {
+                        contestExpired.show();
+                        $('#trade-crypto').hide();
+                    }
+                });
+            }
+        };
 
         $(function () {
-            $('.menu-links .accounting').addClass('active');
-
-            // bind data
-            bind('openpositions-equities-container', 'Equities');
-            bind('openpositions-mutualfunds-container', 'MutualFunds');
-            bind('openpositions-cryptos-container', 'Crypto');
-            bindSorting();
-
-            // determine pageIndex when next/previous have been clicked
-            $('.paging-button').on('click', SetPageIndex);
-
-            $('#tabEquity').addClass('active');
-            $('.op-sub-menu_equities').show();
-            CheckIfAllowToResetPortfolio();
-
-
-            $.get("/widgets/showOverlay", {}, function (result) {
-                console.log(result);
-                if (result.IsValid) {
-                    $('#welcomeMessage').html(result.Html).foundation('open');
-                    $('#lblTotalItems').html(result.CountTotal);
-
-                    $('#welcomeMessage .title').html(' Welcome back, <strong><em>Trader Gavin!</em></strong>');
-
-                    $('#btn-remindlater').click(function(){
-                        $("#welcomeMessage").foundation('close');
-                    });
-                    $('.close-button').click(function(){
-                        $.post("/accounting/HideSplitDividendMessage", {}, function (result) {
-                            $("#welcomeMessage").foundation('close');
-                        });
-                    });
-                }
-            });
-
-            $('.resetportfolio').off();
-            $('.resetportfolio').on('click', function () {
-                $('#modal-resetportfolio').foundation('open');
-                return false;
-            });
-
-            $('#btnResetPortfolioYes').on('click', function () {
-                $.get("/accounting/resetportfolio", null, function (result) {
-                    window.location.reload();
+                $('#orderTypeVideoModal').click(function () {
+                    $("#video-modal").foundation('open');
                 });
-            });
+                //HTMWTradingCrypto.TradeAgain();
+                // check if contest has expired
+                HTMWTradingCrypto.CheckIfContestExpired();
+                $('#tbQuantity').filter_input({ regex: '[0-9]' });
+                $('#tbQuantity').on('change', HTMWTradingCrypto.ChangeQuantity);
+                $('#tbCryptoAmount').on('change', HTMWTradingCrypto.ChangeAmount);
+                $('.trading').addClass('current');
 
-            // Download/Email/Print Modal Popup
-            $('.exportopenposition').click(function () {
-                var currenttab = 'openposition';
-                var accountid = '15734602';
-                var from = '2000-01-01';
-                var to = '2024-10-02';
-                var tournamentid = '320009';
-                var userid = '8922120';
-                var urlcsv = '/accounting/ExportAccountInfo?accountid=' + accountid + '&tabvalue=' + currenttab + '&from=' + from + '&to=' + to + '&tournamentid=' + tournamentid + '&userid=' + userid;
-                var urlgdrive = '/accounting/ExportAccountInfoGoogleDrive?accountid=' + accountid + '&tabvalue=' + currenttab + '&from=' + from + '&to=' + to + '&tournamentid=' + tournamentid + '&userid=' + userid;
-                $(".exportable").data("action-export-csv", urlcsv);
-                $(".exportable").data("action-export-gdrive", urlgdrive);
-                $("#ExportModalPopup").foundation('open');
-                //                window.location.href = "/accounting/ExportAccountInfo?accountid=" + accountid + "&tabvalue=" + currenttab + "&from=" + from + "&to=" + to + "&tournamentid=" + tournamentid + "&userid=" + userid;
-            });
-        });
+                // check allowed product types for current contest
+                HTMWTradingCrypto.CheckProductType();
 
+                // bind events
+                HTMWTradingCrypto.BindEvents();
+                // show price if symbol is not empty
+                if ($('#tbSymbol').val()) {
+                    HTMWTradingCrypto.ShowPrice();
+                    if ($('#tbQuantity').val() != null) {
+                        HTMWTradingCrypto.ChangeQuantity();
+                    }
+                }
+
+                // set values
+                var orderSide = $('#hidOrderSide').val();
+                var orderType = $('#hidOrderType').val();
+                HTMWTradingCrypto.SetValues(orderSide, orderType);
+
+                $('#ddlOrderType').val('1');
+
+
+
+
+                // setup symbol lookup
+                HTMWTradingCrypto.SetupSymbolLookup();
+
+                //Check Start Date
+                HTMWTradingCrypto.CheckStartDate();
+
+
+            });
     </script>
 
     
